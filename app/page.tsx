@@ -1,5 +1,6 @@
 // pages/index.tsx
 import Link from 'next/link';
+import Image from 'next/image';
 import { getLocalMarkdownPosts } from '@/utils';
 
 export const revalidate = 60;
@@ -13,8 +14,14 @@ export default async function BlogIndexPage() {
       <div className="grid gap-4">
         {posts.map((post) => (
           <a key={post.slug} href={`/blog/${post.slug}`} className="p-4 border rounded block hover:bg-slate-50 transition">
+            <Image
+              src={post.thumbnail}
+              alt=''
+              width='500'
+              height='500'
+             />
             <h2 className="text-xl font-semibold text-blue-600">{post.title}</h2>
-            <span className="text-sm text-gray-400">{new Date(post.date).toISOString().split('T')[0]}</span>
+            <span className="text-sm text-gray-400">{post.date}</span>
             <p className="mt-2 text-gray-600">{post.excerpt}</p>
           </a>
         ))}

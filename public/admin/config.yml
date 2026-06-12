@@ -3,8 +3,17 @@
 backend:
   name: github
   repo: RakiRarufu/sveltia-test
+  base_url: https://sveltia-cms-auth.raki-rarufu-dev.workers.dev
 media_folder: /public/media
 public_folder: /media
+
+media_libraries:
+  cloudflare_r2: 
+    access_key_id: 9c671155033e705d9900c1857e7b81cc
+    bucket: sveltia-media
+    account_id: ffa0678267bca3257f3209173022c26f 
+    public_url: https://pub-a32043e692ef4f1f91a01e5573fd355d.r2.dev
+    prefix: cms-uploads/
 
 collections:
   - name: posts
@@ -15,3 +24,41 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, type: date }
       - { label: Body, name: body, widget: richtext }
+      - { label: Featured Image, name: thumbnail, widget: image, hint: This image will be used as the main image on the homepage and detail pages.}
+  - name: pages
+    label: Pages
+    files:
+      - name: homepage
+        label: Home Page
+        file: content/pages/home.md
+        fields: 
+        - { label: Who We Are, name: who-we-are, widget: richtext}
+
+      - name: about
+        label: About Page
+        file: content/pages/about.md
+        fields:
+        - { label: Title, name: title}
+        - { label: Body, name: body, widget: richtext }
+      - name: contact
+        label: Contact Page
+        file: content/pages/contact.md
+        fields: 
+        - { label: Title, name: title}
+        - { label: Body, name: body, widget: richtext }
+      - name: mission-vision
+        label: Mission and Vision
+        file: content/pages/mission-vision.md
+        fields: 
+        - { label: Description, name: description, widget: string, hint: This description is shown below the header}
+        - { label: Our Mission, name: mission, widget: text}
+        - { label: Our Vision, name: vision, widget: text}
+        - { label: Our Goals, name: goals, widget: richtext}
+        - label: Core Values 
+          name: core_values 
+          widget: list
+          field: 
+            name: core_value
+            label: Core Value
+            widget: string
+

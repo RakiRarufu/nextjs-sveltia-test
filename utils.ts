@@ -2,15 +2,10 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path"
 
-export interface PostData {
-  slug: string;
-  title: string;
-  date: string;
-  body: string;
-}
 
  // Point this path directly to where Sveltia CMS saves your markdown folder
 const postsDirectory = path.join(process.cwd(), "../sveltia-test/content/posts")
+const pagesDirectory = path.join(process.cwd(), "../sveltia-test/content/pages")
 
 export async function getLocalMarkdownPosts() {
   
@@ -31,8 +26,9 @@ export async function getLocalMarkdownPosts() {
       return {
         slug: filename.replace(/\.md$/, ''),
         title: data.title || 'Untitled Post',
-        date: data.date || 'No Date',
+        date: data.date ? new Date(data.date).toISOString().split('T')[0] : 'No Date',
         excerpt: data.excerpt || content.slice(0, 140) + '...',
+        thumbnail: data.thumbnail || null
       };
     });
 
